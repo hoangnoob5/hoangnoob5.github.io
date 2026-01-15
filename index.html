@@ -2,35 +2,76 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Website của tôi</title>
+    <title>Website đầu tiên</title>
+
     <style>
+        /* Toàn bộ trang */
         body {
-            background: linear-gradient(120deg, #00c6ff, #0072ff);
+            margin: 0;
             font-family: Arial;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
             text-align: center;
             color: white;
-            padding-top: 100px;
         }
-        h1 {
-            font-size: 48px;https://github.com/hoangnoob5/haongdeptai.github.io/tree/main
+
+        /* Phần đầu */
+        header {
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.3);
         }
-        p {
-            font-size: 20px;
+
+        /* Hộp nội dung */
+        .box {
+            background: white;
+            color: black;
+            width: 80%;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
+
+        /* Nút bấm */
         button {
-            padding: 12px 24px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 8px;
+            border-radius: 25px;
+            background: #4facfe;
+            color: white;
             font-size: 16px;
             cursor: pointer;
         }
+
+        button:hover {
+            background: #00c6ff;
+        }
+
+        footer {
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+        }
     </style>
 </head>
+
 <body>
-    <h1>Xin chào 👋</h1>
+
+<header>
+    <h1>Xin chào</h1>
     <p>Đây là website miễn phí của tôi</p>
-    <button onclick="alert('Website hoạt động tốt!')">
-        Bấm thử
+</header>
+
+<div class="box">
+    <h2>Giới thiệu</h2>
+    <p>xin chào thầy cô và các bạn vào web.</p>
+    <button onclick="alert('Chào bạn!')">
+        Nhấn vào đây
     </button>
+</div>
+
+<footer>
+    © bài tập D2T
+</footer>
+
 </body>
 </html>
