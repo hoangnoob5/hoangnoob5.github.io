@@ -3,100 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thế Giới Minecraft - Sáng Tạo Không Giới Hạn</title>
+    <title>Minecraft - Hành Trình Sáng Tạo</title>
     <style>
-        /* CSS để trang web lung linh hơn */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0; padding: 0;
+            background-color: #1a1a1a; color: white;
             line-height: 1.6;
-            background-color: #f4f4f4;
-            color: #333;
+            scroll-behavior: smooth;
         }
 
+        /* Header */
         header {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1607988523113-231d665893d5?q=80&w=2070&auto=format&fit=crop');
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://www.minecraft.net/content/dam/games/minecraft/key-art/Minecraft-Wild-Update_600x338.jpg');
             background-size: cover;
             background-position: center;
-            height: 400px;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            padding: 100px 20px;
             text-align: center;
+            border-bottom: 5px solid #4CAF50;
         }
 
-        header h1 {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-        }
+        header h1 { font-size: 4rem; margin: 0; color: #81c784; text-shadow: 4px 4px #000; }
 
         nav {
-            background: #388e3c;
+            background: #252525;
             padding: 15px;
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 1000;
+            border-bottom: 1px solid #444;
         }
 
         nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 20px;
-            font-weight: bold;
+            color: #ddd; text-decoration: none;
+            margin: 0 15px; font-weight: bold;
             text-transform: uppercase;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border-radius: 8px;
+        nav a:hover { color: #81c784; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+
+        section { margin-bottom: 60px; }
+
+        h2 { 
+            color: #81c784; 
+            font-size: 2.5rem; 
+            border-bottom: 2px solid #444; 
+            padding-bottom: 10px;
         }
 
-        .section {
-            margin-bottom: 40px;
+        /* Intro Section */
+        .intro-box {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
-        .game-features {
+        .intro-text { flex: 2; min-width: 300px; }
+
+        /* Icon vẽ bằng CSS */
+        .grass-block-css {
+            width: 100px; height: 100px;
+            background: #6d4c3d;
+            border-top: 25px solid #7cb342;
+            box-shadow: 10px 10px 0 rgba(0,0,0,0.2);
+            margin: 0 auto;
+        }
+
+        /* Grid hiển thị nội dung */
+        .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 25px;
         }
 
-        .card {
-            background: #eee;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
+        .info-card {
+            background: #252525;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
         }
 
-        .card img {
-            max-width: 100%;
+        .info-card h3 { color: #ffeb3b; margin-top: 0; }
+
+        /* Biểu tượng nhỏ */
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #4CAF50;
             border-radius: 5px;
-            height: 200px;
-            object-fit: cover;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
         }
 
         footer {
-            background: #2e7d32;
-            color: white;
             text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-        }
-
-        h2 {
-            color: #2e7d32;
-            border-bottom: 2px solid #388e3c;
-            padding-bottom: 10px;
+            padding: 50px;
+            background: #111;
+            color: #666;
         }
     </style>
 </head>
@@ -104,49 +112,72 @@
 
     <header>
         <h1>MINECRAFT</h1>
-        <p>Xây dựng ước mơ - Khám phá thế giới</p>
+        <p>Thế giới của những khối vuông kỳ diệu</p>
     </header>
 
     <nav>
-        <a href="#intro">Giới Thiệu</a>
-        <a href="#modes">Chế Độ Chơi</a>
-        <a href="#biomes">Vùng Đất</a>
+        <a href="#tong-quan">Tổng Quan</a>
+        <a href="#loi-choi">Lối Chơi</a>
+        <a href="#the-gioi">Thế Giới</a>
     </nav>
 
     <div class="container">
         
-        <section id="intro" class="section">
-            <h2>Minecraft là gì?</h2>
-            <p>Minecraft là một trò chơi điện tử độc lập thuộc thể loại sandbox, cho phép người chơi sáng tạo và xây dựng các công trình bằng cách kết hợp các khối lập phương kết cấu trong một thế giới 3D. Người chơi có thể tham gia vào nhiều hoạt động như tìm kiếm tài nguyên, chế tạo, chiến đấu và khám phá.</p>
-            
-        </section>
-
-        <section id="modes" class="section">
-            <h2>Các Chế Độ Chơi Chính</h2>
-            <div class="game-features">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1587573089734-09cb99c5f0b8?q=80&w=1974&auto=format&fit=crop" alt="Survival Mode">
-                    <h3>Sinh Tồn (Survival)</h3>
-                    <p>Tìm kiếm tài nguyên, chế tạo công cụ và chiến đấu với quái vật đêm để sống sót.</p>
+        <section id="tong-quan">
+            <div class="intro-box">
+                <div class="intro-text">
+                    <h2>Giới Thiệu Chung</h2>
+                    <p>Minecraft là một trò chơi điện tử độc lập thuộc thể loại <strong>Sandbox</strong> (thế giới mở), được phát hành bởi Mojang vào năm 2011. Trong thế giới Minecraft, không có mục tiêu bắt buộc nào cả; người chơi có quyền tự do lựa chọn cách chơi của riêng mình.</p>
+                    <p>Mọi thứ trong thế giới này đều được cấu tạo từ những khối vuông (blocks) đại diện cho các vật liệu khác nhau như đất, đá, quặng, nước, và gỗ.</p>
                 </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1627389955609-bc4202293b6e?q=80&w=2070&auto=format&fit=crop" alt="Creative Mode">
-                    <h3>Sáng Tạo (Creative)</h3>
-                    <p>Không giới hạn tài nguyên, khả năng bay lượn và tự do xây dựng những công trình khổng lồ.</p>
+                <div style="flex:1; text-align: center;">
+                    <div class="grass-block-css"></div>
+                    <p style="color:#7cb342">Biểu tượng khối cỏ</p>
                 </div>
             </div>
         </section>
 
-        <section id="biomes" class="section">
-            <h2>Khám Phá Thế Giới</h2>
-            <p>Từ những cánh rừng già rậm rạp đến những hang động sâu thẳm dưới lòng đất, Minecraft mang đến một hệ sinh thái vô cùng phong phú và đa dạng.</p>
-            
+        <section id="loi-choi">
+            <h2>Hệ Thống Lối Chơi</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <span class="badge">Survival</span>
+                    <h3>Chế tạo & Khai thác</h3>
+                    <p>Người chơi bắt đầu với đôi bàn tay trắng. Bạn phải chặt cây lấy gỗ, đào đá làm công cụ và khai thác than, sắt, kim cương để nâng cấp trang bị.</p>
+                </div>
+                <div class="info-card">
+                    <span class="badge">Combat</span>
+                    <h3>Chiến đấu</h3>
+                    <p>Khi đêm xuống, các quái vật như <strong>Creeper</strong>, <strong>Zombie</strong> và <strong>Skeleton</strong> sẽ xuất hiện. Bạn cần xây dựng nhà cửa và chế tạo vũ khí để bảo vệ mình.</p>
+                </div>
+                <div class="info-card">
+                    <span class="badge">Creative</span>
+                    <h3>Sáng tạo vô tận</h3>
+                    <p>Không giới hạn tài nguyên, bạn có thể bay và xây dựng những thành phố, lâu đài hay thậm chí là các máy móc phức tạp bằng đá đỏ (Redstone).</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="the-gioi">
+            <h2>Các Chiều Không Gian</h2>
+            <p>Thế giới Minecraft không chỉ dừng lại ở mặt đất (Overworld), mà còn có các vùng đất kỳ bí khác:</p>
+            <div class="info-grid">
+                <div class="info-card" style="border-left: 5px solid #f44336;">
+                    <h3>The Nether (Địa Ngục)</h3>
+                    <p>Một thế giới rực cháy với dung nham và những sinh vật nguy hiểm. Đây là nơi bạn tìm thấy tài nguyên để chế tạo trang bị mạnh nhất game.</p>
+                </div>
+                <div class="info-card" style="border-left: 5px solid #9c27b0;">
+                    <h3>The End (Thế Giới Kết Thúc)</h3>
+                    <p>Một vùng không gian trống rỗng, nơi ngự trị của <strong>Ender Dragon</strong> - con trùm cuối cùng của trò chơi.</p>
+                </div>
+            </div>
         </section>
 
     </div>
 
     <footer>
-        <p>&copy; 2026 Fanpage Minecraft Việt Nam. Hình ảnh minh họa từ Unsplash.</p>
+        <p>&copy; 2026 Cẩm nang Minecraft cho người mới bắt đầu.</p>
+        <p>Mã nguồn được tối ưu hiển thị trên GitHub Pages.</p>
     </footer>
 
 </body>
