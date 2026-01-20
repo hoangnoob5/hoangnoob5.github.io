@@ -2,76 +2,152 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Website đầu tiên</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thế Giới Minecraft - Sáng Tạo Không Giới Hạn</title>
     <style>
-        /* Toàn bộ trang */
+        /* CSS để trang web lung linh hơn */
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            font-family: Arial;
-            background: linear-gradient(to right, #4facfe, #00f2fe);
-            text-align: center;
-            color: white;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
         }
 
-        /* Phần đầu */
         header {
-            padding: 40px;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        /* Hộp nội dung */
-        .box {
-            background: white;
-            color: black;
-            width: 80%;
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-        }
-
-        /* Nút bấm */
-        button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            background: #4facfe;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1607988523113-231d665893d5?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
             color: white;
-            font-size: 16px;
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
-        button:hover {
-            background: #00c6ff;
+        header h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        nav {
+            background: #388e3c;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .game-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #eee;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .card img {
+            max-width: 100%;
+            border-radius: 5px;
+            height: 200px;
+            object-fit: cover;
         }
 
         footer {
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
+            background: #2e7d32;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        h2 {
+            color: #2e7d32;
+            border-bottom: 2px solid #388e3c;
+            padding-bottom: 10px;
         }
     </style>
 </head>
-
 <body>
 
-<header>
-    <h1>Xin chào</h1>
-    <p>Đây là website miễn phí của tôi</p>
-</header>
+    <header>
+        <h1>MINECRAFT</h1>
+        <p>Xây dựng ước mơ - Khám phá thế giới</p>
+    </header>
 
-<div class="box">
-    <h2>Giới thiệu</h2>
-    <p>xin chào thầy cô và các bạn vào web.</p>
-    <button onclick="alert('Chào bạn!')">
-        Nhấn vào đây
-    </button>
-</div>
+    <nav>
+        <a href="#intro">Giới Thiệu</a>
+        <a href="#modes">Chế Độ Chơi</a>
+        <a href="#biomes">Vùng Đất</a>
+    </nav>
 
-<footer>
-    © bài tập D2T
-</footer>
+    <div class="container">
+        
+        <section id="intro" class="section">
+            <h2>Minecraft là gì?</h2>
+            <p>Minecraft là một trò chơi điện tử độc lập thuộc thể loại sandbox, cho phép người chơi sáng tạo và xây dựng các công trình bằng cách kết hợp các khối lập phương kết cấu trong một thế giới 3D. Người chơi có thể tham gia vào nhiều hoạt động như tìm kiếm tài nguyên, chế tạo, chiến đấu và khám phá.</p>
+            
+        </section>
+
+        <section id="modes" class="section">
+            <h2>Các Chế Độ Chơi Chính</h2>
+            <div class="game-features">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1587573089734-09cb99c5f0b8?q=80&w=1974&auto=format&fit=crop" alt="Survival Mode">
+                    <h3>Sinh Tồn (Survival)</h3>
+                    <p>Tìm kiếm tài nguyên, chế tạo công cụ và chiến đấu với quái vật đêm để sống sót.</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1627389955609-bc4202293b6e?q=80&w=2070&auto=format&fit=crop" alt="Creative Mode">
+                    <h3>Sáng Tạo (Creative)</h3>
+                    <p>Không giới hạn tài nguyên, khả năng bay lượn và tự do xây dựng những công trình khổng lồ.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="biomes" class="section">
+            <h2>Khám Phá Thế Giới</h2>
+            <p>Từ những cánh rừng già rậm rạp đến những hang động sâu thẳm dưới lòng đất, Minecraft mang đến một hệ sinh thái vô cùng phong phú và đa dạng.</p>
+            
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Fanpage Minecraft Việt Nam. Hình ảnh minh họa từ Unsplash.</p>
+    </footer>
 
 </body>
 </html>
