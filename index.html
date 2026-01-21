@@ -3,578 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft - Hành Trình Sáng Tạo</title>
+    <title>Minecraft Universe - Cổng Thông Tin Chính Thức</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0; padding: 0;
-            background-color: #121212; color: #e0e0e0;
+        :root {
+            --mc-green: #5eb839;
+            --mc-dark-green: #3e8024;
+            --mc-black: #0a0a0a;
+            --mc-gray: #1a1a1a;
+            --mc-text-gray: #b0b0b0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        
+        body { 
+            background-color: var(--mc-black); 
+            color: #eee; 
             line-height: 1.6;
-            scroll-behavior: smooth;
+            overflow-x: hidden;
+            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
-        /* Banner nâng cấp */
-        header {
-            height: 80vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
-                        url('https://images.alphacoders.com/132/1327171.jpeg'); /* Hình nền chất lượng cao */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Hiệu ứng Parallax */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border-bottom: 8px solid #4CAF50;
-        }
-
-        header h1 { 
-            font-size: 5rem; 
-            margin: 0; 
-            color: #ffffff; 
-            text-shadow: 0 5px 15px rgba(0,0,0,0.8);
-            letter-spacing: 5px;
-            /* Khung cho chữ Minecraft */
-            border: 5px solid #4CAF50;
-            padding: 10px 25px;
-            border-radius: 10px;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        header p {
-            font-size: 1.5rem;
-            color: #81c784;
-            margin-top: 10px;
-            font-weight: 300;
-        }
-
-        .cta-button {
-            margin-top: 30px;
-            padding: 15px 40px;
-            background: #4CAF50;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 50px;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-        }
-
-        .cta-button:hover { background: #66bb6a; transform: scale(1.05); }
-
+        /* --- NAVIGATION --- */
         nav {
-            background: rgba(37, 37, 37, 0.95);
-            padding: 15px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 15px 10%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            border-bottom: 4px solid var(--mc-green);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid #333;
         }
+        .logo-nav { font-weight: 900; color: var(--mc-green); font-size: 1.5rem; letter-spacing: 2px; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li a { color: #fff; text-decoration: none; padding: 10px 20px; cursor: pointer; transition: 0.3s; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; }
+        nav ul li a:hover, nav ul li a.active { color: var(--mc-green); border-bottom: 2px solid var(--mc-green); }
 
-        nav a {
-            color: #ddd; text-decoration: none;
-            margin: 0 20px; font-weight: bold;
+        /* --- LAYOUT --- */
+        section { display: none; padding: 120px 10% 80px; min-height: 100vh; animation: fadeIn 0.6s ease; }
+        section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- TRANG CHỦ --- */
+        #home {
+            height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center;
+        }
+        .minecraft-main-title {
+            font-size: clamp(3.5rem, 12vw, 8rem);
+            font-weight: 900;
             text-transform: uppercase;
-            font-size: 0.9rem;
-            transition: 0.3s;
+            letter-spacing: 12px;
+            margin-bottom: 5px;
+            text-shadow: 0 1px 0 #bbb, 0 8px 0 #444, 0 15px 30px rgba(0,0,0,0.8);
         }
-
-        nav a:hover { color: #81c784; }
-
-        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
-
-        h2 { 
-            color: #81c784; 
-            font-size: 2.8rem; 
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        /* Cards & Hover Effects */
-        .info-card {
-            background: #1e1e1e;
-            padding: 30px;
+        .subtitle { font-size: 1.4rem; color: var(--mc-green); font-weight: 300; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 40px; }
+        
+        /* --- NỘI DUNG CHI TIẾT --- */
+        .content-block {
+            background: var(--mc-gray);
+            padding: 40px;
             border-radius: 15px;
-            border: 1px solid #333;
-            transition: all 0.3s ease;
+            margin: 40px 0;
+            border-left: 5px solid var(--mc-green);
         }
+        .content-block h2 { color: var(--mc-green); margin-bottom: 20px; font-size: 2rem; }
+        .content-block p { color: var(--mc-text-gray); font-size: 1.1rem; margin-bottom: 15px; text-align: justify; }
 
-        .info-card:hover {
-            transform: translateY(-10px);
-            border-color: #4CAF50;
-            background: #252525;
+        /* --- CARDS & GRID --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 50px; }
+        .card { 
+            background: #111; border: 1px solid #333; 
+            overflow: hidden; border-radius: 12px; transition: 0.4s;
+            display: flex; flex-direction: column;
         }
+        .card:hover { border-color: var(--mc-green); transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        .card img { width: 100%; height: 230px; object-fit: cover; transition: 0.5s; }
+        .card:hover img { transform: scale(1.05); }
+        .card-body { padding: 25px; flex-grow: 1; }
+        .card-body h3 { color: var(--mc-green); margin-bottom: 15px; font-size: 1.5rem; }
+        .card-body ul { list-style: none; margin-top: 15px; }
+        .card-body ul li { font-size: 0.9rem; color: #888; margin-bottom: 8px; display: flex; align-items: center; }
+        .card-body ul li::before { content: "■"; color: var(--mc-green); margin-right: 10px; font-size: 0.7rem; }
 
-        /* CSS vẽ khối Grass */
-        .grass-block-css {
-            width: 120px; height: 120px;
-            background: #6d4c3d;
-            border-top: 30px solid #7cb342;
-            box-shadow: 15px 15px 30px rgba(0,0,0,0.5);
-            margin: 0 auto;
+        /* --- VIDEO --- */
+        .video-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border: 8px solid #222; border-radius: 15px; margin: 40px 0;
+            box-shadow: 0 0 50px rgba(94, 184, 57, 0.2);
         }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-        /* Section: Mobs */
-        .mob-list {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding: 20px 0;
+        /* --- BUTTON --- */
+        .btn-action {
+            background: var(--mc-green); color: white; padding: 20px 50px;
+            border: none; font-weight: bold; font-size: 1.1rem; cursor: pointer;
+            text-transform: uppercase; border-radius: 5px;
+            box-shadow: 0 6px 0 var(--mc-dark-green); transition: 0.2s;
         }
+        .btn-action:hover { background: #6ed145; transform: translateY(-2px); }
+        .btn-action:active { transform: translateY(4px); box-shadow: none; }
 
-        .mob-item {
-            min-width: 200px;
-            background: #2c2c2c;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px 20px;
-            background: #0a0a0a;
-            color: #888;
-            border-top: 1px solid #222;
-        }
-
-        /* Tùy chỉnh chữ tên tác giả */
-        .author-signature {
-            margin-top: 20px;
-            font-style: italic;
-            color: #4CAF50;
-            font-weight: bold;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-        }
+        footer { text-align: center; padding: 60px; border-top: 1px solid #222; color: #666; font-size: 0.9rem; margin-top: 50px; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>MINECRAFT</h1>
-        <p>Giới hạn duy nhất là trí tưởng tượng của bạn</p>
-        <a href="#tong-quan" class="cta-button">Khám Phá Ngay</a>
-    </header>
-
     <nav>
-        <a href="#tong-quan">Tổng Quan</a>
-        <a href="#loi-choi">Lối Chơi</a>
-        <a href="#he-sinh-thai">Hệ Sinh Thái</a>
-        <a href="#the-gioi">Chiều Không Gian</a>
+        <div class="logo-nav">MINECRAFT HUB</div>
+        <ul>
+            <li><a onclick="showPage('home')" id="link-home" class="active">Trang Chủ</a></li>
+            <li><a onclick="showPage('gameplay')" id="link-gameplay">Lối Chơi</a></li>
+            <li><a onclick="showPage('world')" id="link-world">Thế Giới</a></li>
+        </ul>
     </nav>
 
-    <div class="container">
-        
-        <section id="tong-quan">
-            <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
-                <div style="flex: 2; min-width: 300px;">
-                    <h2>Thế Giới Vô Tận</h2>
-                    <p>Được phát hành bởi <strong>Mojang Studios</strong>, Minecraft không chỉ là một trò chơi, mà là một công cụ giáo dục, một nền tảng nghệ thuật và là nơi gặp gỡ của hàng triệu người chơi trên toàn cầu.</p>
-                    <p>Mỗi thế giới được tạo ra là duy nhất nhờ thuật toán tạo ngẫu nhiên, mang đến cho bạn những dãy núi hùng vĩ, những hang động sâu thẳm và những đại dương bao la.</p>
-                </div>
-                <div style="flex:1; text-align: center;">
-                    <div class="grass-block-css"></div>
-                    <p style="color:#7cb342; font-weight: bold; margin-top: 20px;">The Grass Block</p>
-                </div>
-            </div>
-        </section>
+    <section id="home" class="active" style="display: flex;">
+        <h1 class="minecraft-main-title">Minecraft</h1>
+        <p class="subtitle">Khám Phá Sáng Tạo Không Giới Hạn</p>
+        <img src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/06/anh-minecraft.jpg" class="gaming-banner" alt="Banner Minecraft">
+        <div style="max-width: 800px; margin-top: 20px;">
+            <p style="color: #888; margin-bottom: 30px;">Chào mừng bạn đến với vũ trụ của những khối vuông kỳ diệu. Tại đây, giới hạn duy nhất là trí tưởng tượng của bạn. Hãy bắt đầu hành trình từ những công cụ bằng gỗ thô sơ đến việc xây dựng những vương quốc hùng vĩ.</p>
+            <button class="btn-action" onclick="showPage('gameplay')">Khám Phá Ngay</button>
+        </div>
+    </section>
 
-        <section id="loi-choi">
-            <h2>Chế Độ Chơi Đặc Sắc</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                <div class="info-card">
-                    <span style="color: #4CAF50; font-weight: bold;">[ SURVIVAL ]</span>
-                    <h3>Sống Sót</h3>
-                    <p>Tìm kiếm thức ăn, xây dựng nơi trú ẩn và chống lại những mối nguy hiểm khi đêm xuống. Đây là thử thách thực sự cho kỹ năng quản lý tài nguyên.</p>
-                </div>
-                <div class="info-card">
-                    <span style="color: #2196F3; font-weight: bold;">[ CREATIVE ]</span>
-                    <h3>Sáng Tạo</h3>
-                    <p>Sở hữu tất cả các khối vuông, khả năng bay lượn và không bao giờ chết. Hãy xây dựng những kỳ quan thế giới theo cách của bạn.</p>
-                </div>
-                <div class="info-card">
-                    <span style="color: #f44336; font-weight: bold;">[ HARDCORE ]</span>
-                    <h3>Siêu Khó</h3>
-                    <p>Chỉ một mạng duy nhất. Nếu bạn hy sinh, thế giới đó sẽ biến mất vĩnh viễn. Chỉ dành cho những bậc thầy Minecraft!</p>
-                </div>
-            </div>
-        </section>
+    <section id="gameplay">
+        <div class="content-block">
+            <h2>Hành Trình Chinh Phục</h2>
+            <p>Minecraft không chỉ là một trò chơi xây dựng, nó là một trải nghiệm mô phỏng cuộc sống trong một thế giới hoàn toàn khác biệt. Người chơi bắt đầu hành trình của mình bằng việc khai thác các khối tài nguyên cơ bản như gỗ, đất và đá để tạo ra những công cụ đầu tiên.</p>
+            <p>Khi màn đêm buông xuống, thử thách thực sự mới bắt đầu với sự xuất hiện của các sinh vật bóng tối. Bạn sẽ phải học cách chế tạo vũ khí, xây dựng pháo đài và quản lý nguồn thức ăn để duy trì sự sống.</p>
+        </div>
 
-        <section id="he-sinh-thai">
-            <h2>Hệ Sinh Thái & Quái Vật</h2>
-            <div class="info-card" style="margin-bottom: 30px;">
-                <h3>Kỹ thuật Redstone (Đá Đỏ)</h3>
-                <p>Một trong những điểm độc đáo nhất của Minecraft là <strong>Redstone</strong>. Nó hoạt động như một hệ thống điện cơ bản, cho phép bạn tạo ra các cánh cửa tự động, thang máy, máy farm tự động, hoặc thậm chí là một chiếc máy tính hoạt động được ngay trong trò chơi.</p>
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/MmB9b5njVbA" allowfullscreen></iframe>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <img src="https://genk.mediacdn.vn/2018/5/9/9-1525884205241871606036.jpg" alt="Sinh Tồn">
+                <div class="card-body">
+                    <h3>CHẾ ĐỘ SINH TỒN</h3>
+                    <p>Thử thách bản lĩnh cá nhân trong môi trường khắc nghiệt.</p>
+                    <ul>
+                        <li>Quản lý thanh máu và độ đói liên tục.</li>
+                        <li>Thu thập kinh nghiệm để phù phép trang bị.</li>
+                        <li>Chiến đấu với Boss và khám phá hầm ngục.</li>
+                        <li>Thu thập các loại quặng hiếm như Kim cương và Netherite.</li>
+                    </ul>
+                </div>
             </div>
+            <div class="card">
+                <img src="https://congngheviet.com/wp-content/uploads/2023/02/minecraft-gamemode-switcher.jpg" alt="Sáng Tạo">
+                <div class="card-body">
+                    <h3>CHẾ ĐỘ SÁNG TẠO</h3>
+                    <p>Nơi các kiến trúc sư vĩ đại hiện thực hóa giấc mơ.</p>
+                    <ul>
+                        <li>Tài nguyên vô hạn, không giới hạn số lượng khối.</li>
+                        <li>Khả năng bay lượn để quan sát toàn cảnh công trình.</li>
+                        <li>Bất tử trước mọi sát thương từ quái vật.</li>
+                        <li>Sử dụng Redstone để tạo ra các cỗ máy tự động hóa.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="world">
+        <div class="content-block">
+            <h2>Đa Vũ Trụ Kỳ Diệu</h2>
+            <p>Thế giới Minecraft được chia thành nhiều chiều không gian khác nhau, mỗi nơi mang một đặc điểm khí hậu, địa hình và hệ sinh thái riêng biệt. Từ Overworld xanh mát đến Nether rực lửa và The End tĩnh lặng, mỗi bước chân của bạn đều mở ra một khám phá mới.</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <img src="https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/479202XVb/anh-mo-ta.png" alt="Overworld">
+                <div class="card-body">
+                    <h3>OVERWORLD</h3>
+                    <p>Môi trường sống chính của con người và các sinh vật hiền lành.</p>
+                    <ul>
+                        <li>Hơn 60 quần xã sinh vật khác nhau.</li>
+                        <li>Hệ thống hang động và mỏ bỏ hoang sâu thẳm.</li>
+                        <li>Các ngôi làng nơi bạn có thể giao thương.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://i.ytimg.com/vi/3Ox0dtG68Ww/maxresdefault.jpg" alt="The End">
+                <div class="card-body">
+                    <h3>THE END</h3>
+                    <p>Điểm dừng chân cuối cùng của mọi chiến binh quả cảm.</p>
+                    <ul>
+                        <li>Nơi trú ngụ của Rồng Ender huyền thoại.</li>
+                        <li>Thành phố End City với kho báu Elytra (cánh bay).</li>
+                        <li>Quần thể đá End Stone và sinh vật Enderman.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://i.ytimg.com/vi/_yo7Q_JuKH4/maxresdefault.jpg" alt="Nether">
+                <div class="card-body">
+                    <h3>THE NETHER</h3>
+                    <p>Chiều không gian được ví như địa ngục với những dòng nham thạch nóng chảy.</p>
+                    <ul>
+                        <li>Khai thác thạch anh và mảnh vụn Netherite.</li>
+                        <li>Lâu đài lợn lính (Bastion) và pháo đài Nether.</li>
+                        <li>Hệ thống cổng dịch chuyển xuyên qua các chiều không gian.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Minecraft Fan Universe | Khám Phá - Sáng Tạo - Kết Nối</p>
+        <p style="font-size: 0.7rem; margin-top: 10px; opacity: 0.5;">Tất cả hình ảnh thuộc bản quyền của Mojang Studios và các đối tác liên quan.</p>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(s => {
+                s.classList.remove('active');
+                s.style.display = 'none';
+            });
+
+            const selected = document.getElementById(pageId);
+            selected.classList.add('active');
             
-            <div class="mob-list">
-                <div class="mob-item">
-                    <h4 style="color: #4CAF50;">Creeper</h4>
-                    <p>Kẻ thù thầm lặng chuyên phá hủy các công trình bằng những cú nổ bất ngờ.</p>
-                </div>
-                <div class="mob-item">
-                    <h4 style="color: #9c27b0;">Enderman</h4>
-                    <p>Sinh vật cao lớn có khả năng dịch chuyển tức thời và nhặt các khối vuông.</p>
-                </div>
-                <div class="mob-item">
-                    <h4 style="color: #ff9800;">Villager</h4>
-                    <p>Những dân làng hiền lành mà bạn có thể giao dịch vật phẩm quý hiếm.</p>
-                </div>
-                <div class="mob-item">
-                    <h4 style="color: #607d8b;">Iron Golem</h4>
-                    <p>Người bảo vệ to lớn, trung thành của các ngôi làng.</p>
-                </div>
-            </div>
-        </section>
+            // Re-check display mode for home page
+            if(pageId === 'home') {
+                selected.style.display = 'flex';
+            } else {
+                selected.style.display = 'block';
+            }
 
-        <section id="the-gioi">
-            <h2>Các Chiều Không Gian</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-wrap: wrap;">
-                <div class="info-card" style="border-left: 8px solid #f44336;">
-                    <h3>The Nether</h3>
-                    <p>Được coi là "Địa Ngục" của Minecraft. Nơi đây tràn ngập dung nham, lửa và các sinh vật như Piglins hay Ghasts. Bạn cần Nether Portal để xâm nhập vào đây.</p>
-                </div>
-                <div class="info-card" style="border-left: 8px solid #9c27b0;">
-                    <h3>The End</h3>
-                    <p>Nơi tận cùng của thế giới. Tại đây, bạn sẽ đối đầu với Ender Dragon để "phá đảo" trò chơi và mở ra cánh cổng đến những thành phố bay End City.</p>
-                </div>
-            </div>
-        </section>
+            // Update Nav links
+            document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove('active'));
+            const activeLink = document.querySelector(`a[onclick="showPage('${pageId}')"]`);
+            if(activeLink) activeLink.classList.add('active');
 
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Minecraft Fanpage - Được thiết kế cho cộng đồng đam mê khối vuông.</p>
-        <p>Trò chơi thuộc bản quyền của Mojang Studios.</p>
-        <p class="author-signature">Làm bởi Phạm Bảo Hoang 12 A4</p>
-    </footer>
-
-</body>
-</html>
-            background: #252525;
+            // Smooth scroll to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
-
-        /* CSS vẽ khối Grass (Giữ lại từ bản gốc) */
-        .grass-block-css {
-            width: 120px; height: 120px;
-            background: #6d4c3d;
-            border-top: 30px solid #7cb342;
-            box-shadow: 15px 15px 30px rgba(0,0,0,0.5);
-            margin: 0 auto;
-        }
-
-        /* Section mới: Mobs */
-        .mob-list {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding: 20px 0;
-        }
-
-        .mob-item {
-            min-width: 200px;
-            background: #2c2c2c;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px 20px;
-            background: #0a0a0a;
-            color: #888;
-            border-top: 1px solid #222;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>MINECRAFT</h1>
-        <p>Giới hạn duy nhất là trí tưởng tượng của bạn</p>
-        <a href="#tong-quan" class="cta-button">Khám Phá Ngay</a>
-    </header>
-
-    <nav>
-        <a href="#tong-quan">Tổng Quan</a>
-        <a href="#loi-choi">Lối Chơi</a>
-        <a href="#he-sinh-thai">Hệ Sinh Thái</a>
-        <a href="#the-gioi">Chiều Không Gian</a>
-    </nav>
-
-    <div class="container">
-        
-        <section id="tong-quan">
-            <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
-                <div style="flex: 2; min-width: 300px;">
-                    <h2>Thế Giới Vô Tận</h2>
-                    <p>Được phát hành bởi <strong>Mojang Studios</strong>, Minecraft không chỉ là một trò chơi, mà là một công cụ giáo dục, một nền tảng nghệ thuật và là nơi gặp gỡ của hàng triệu người chơi trên toàn cầu.</p>
-                    <p>Mỗi thế giới được tạo ra là duy nhất nhờ thuật toán tạo ngẫu nhiên, mang đến cho bạn những dãy núi hùng vĩ, những hang động sâu thẳm và những đại dương bao la.</p>
-                </div>
-                <div style="flex:1; text-align: center;">
-                    <div class="grass-block-css"></div>
-                    <p style="color:#7cb342; font-weight: bold; margin-top: 20px;">The Grass Block</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="loi-choi">
-            <h2>Chế Độ Chơi Đặc Sắc</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                <div class="info-card">
-                    <span style="color: #4CAF50; font-weight: bold;">[ SURVIVAL ]</span>
-                    <h3>Sống Sót</h3>
-                    <p>Tìm kiếm thức ăn, xây dựng nơi trú ẩn và chống lại những mối nguy hiểm khi đêm xuống. Đây là thử thách thực sự cho kỹ năng quản lý tài nguyên.</p>
-                </div>
-                <div class="info-card">
-                    <span style="color: #2196F3; font-weight: bold;">[ CREATIVE ]</span>
-                    <h3>Sáng Tạo</h3>
-                    <p>Sở hữu tất cả các khối vuông, khả năng bay lượn và không bao giờ chết. Hãy xây dựng những kỳ quan thế giới theo cách của bạn.</p>
-                </div>
-                <div class="info-card">
-                    <span style="color: #f44336; font-weight: bold;">[ HARDCORE ]</span>
-                    <h3>Siêu Khó</h3>
-                    <p>Chỉ một mạng duy nhất. Nếu bạn hy sinh, thế giới đó sẽ biến mất vĩnh viễn. Chỉ dành cho những bậc thầy Minecraft!</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="he-sinh-thai">
-            <h2>Hệ Sinh Thái & Quái Vật</h2>
-            <div class="info-card" style="margin-bottom: 30px;">
-                <h3>Kỹ thuật Redstone (Đá Đỏ)</h3>
-                <p>Một trong những điểm độc đáo nhất của Minecraft là <strong>Redstone</strong>. Nó hoạt động như một hệ thống điện cơ bản, cho phép bạn tạo ra các cánh cửa tự động, thang máy, máy farm tự động, hoặc thậm chí là một chiếc máy tính hoạt động được ngay trong trò chơi.</p>
-            </div>
-            
-            <div class="mob-list">
-                <div class="mob-item">
-                    <h4 style="color: #4CAF50;">Creeper</h4>
-                    <p>Kẻ thù thầm lặng chuyên phá hủy các công trình bằng những cú nổ bất ngờ.</p>
-                </div>
-                <div class="mob-item">
-                    <h4 style="color: #9c27b0;">Enderman</h4>
-                    <p>Sinh vật cao lớn có khả năng dịch chuyển tức thời và nhặt các khối vuông.</p>
-                </div>
-                <div class="mob-item">
-                    <h4 style="color: #ff9800;">Villager</h4>
-                    <p>Những dân làng hiền lành mà bạn có thể giao dịch vật phẩm quý hiếm.</p>
-                </div>
-                <div class="mob-item">
-                    <h4 style="color: #607d8b;">Iron Golem</h4>
-                    <p>Người bảo vệ to lớn, trung thành của các ngôi làng.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="the-gioi">
-            <h2>Các Chiều Không Gian</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-wrap: wrap;">
-                <div class="info-card" style="border-left: 8px solid #f44336;">
-                    <h3>The Nether</h3>
-                    <p>Được coi là "Địa Ngục" của Minecraft. Nơi đây tràn ngập dung nham, lửa và các sinh vật như Piglins hay Ghasts. Bạn cần Nether Portal để xâm nhập vào đây.</p>
-                </div>
-                <div class="info-card" style="border-left: 8px solid #9c27b0;">
-                    <h3>The End</h3>
-                    <p>Nơi tận cùng của thế giới. Tại đây, bạn sẽ đối đầu với Ender Dragon để "phá đảo" trò chơi và mở ra cánh cổng đến những thành phố bay End City.</p>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Minecraft Fanpage - Được thiết kế cho cộng đồng đam mê khối vuông.</p>
-        <p>Trò chơi thuộc bản quyền của Mojang Studios.</p>
-    </footer>
-
-</body>
-</html>
-            color: #888;
-            border-top: 1px solid #222;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>MINECRAFT</h1>
-        <p>Giới hạn duy nhất là trí tưởng tượng của bạn</p>
-        <a href="#tong-quan" class="cta-button">Khám Phá Ngay</a>
-    </header>
-
-    <nav>
-        <a href="#tong-quan">Tổng Quan</a>
-        <a href="#loi-choi">Lối Chơi</a>
-        <a href="#he-sinh-thai">Hệ Sinh Thái</a>
-        <a href="#the-gioi">Chiều Không Gian</a>
-    </nav>
-
-    <div class="container">
-        
-        <section id="tong-quan">
-            <div style="display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
-                <div style="flex: 2; min-width: 300px;">
-                    <h2>Thế Giới Vô Tận</h2>
-                    <p>Được phát hành bởi <strong>Mojang Studios</strong>, Minecraft không chỉ là một trò chơi, mà là một công cụ giáo dục, một nền tảng nghệ thuật và là nơi gặp gỡ của hàng triệu người chơi trên toàn cầu.</p>
-                    <p>Mỗi thế giới được tạo ra là duy nhất nhờ thuật toán tạo ngẫu nhiên, mang đến cho bạn những dãy núi hùng vĩ, những hang động sâu thẳm và những đại dương bao la.</p>
-                </div>
-                <div style="flex:1; text-align: center;">
-                    <div class="grass-block-css"></div>
-                    <p style="color:#7cb342; font-weight: bold; margin-top: 20px;">The Grass Block</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="loi-choi">
-            <h2>Chế Độ Chơi Đặc Sắc</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                <div class="info-card">
-                    <span style="color: #4CAF50; font-weight: bold;">[ SURVIVAL ]</span>
-                    <h3>Sống Sót</h3>
-                    <p>Tìm kiếm thức ăn, xây dựng nơi trú ẩn và chống lại những mối nguy hiểm khi đêm xuống. Đây là thử thách thực sự cho kỹ năng quản lý tài nguyên.</p>
-                </div>
-                <div class="info-card">
-                    <span style="color: #2196F3; font-weight: bold;">[ CREATIVE ]</span>
-                    <h3>Sáng Tạo</h3>
-                    <p>Sở hữu tất cả các khối vuông, khả năng bay lượn và không bao giờ chết. Hãy xây dựng những kỳ quan thế giới theo cách của bạn.</p>
-                </div>
-                <div class="info-card">
-                    <span style="color: #f44336; font-weight: bold;">[ HARDCORE ]</span>
-                    <h3>Siêu Khó</h3>
-                    <p>Chỉ một mạng duy nhất. Nếu bạn hy sinh, thế giới đó sẽ biến mất vĩnh viễn. Chỉ dành cho những bậc thầy Minecraft!</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="he-sinh-thai">
-            <h2>Hệ Sinh Thái & Quái Vật</h2>
-            <div class="info-card" style="margin-bottom: 30px;">
-                <h3>Kỹ thuật Redstone (Đá Đỏ)</h3>
-                <p>Một trong những điểm độc đáo nhất của Minecraft là <strong>Redstone</strong>. Nó hoạt động như một hệ thống điện cơ bản, cho phép bạn tạo ra các cánh cửa tự động, thang máy, máy farm tự động, hoặc thậm chí là một chiếc máy tính hoạt động được ngay trong trò chơi.</p>
-            </div>
-            
-            <div class="mob-list">
-                <div class="mob-item">
-                    <h4 style="color: #4CAF50;">Creeper</h4>
-                    <p>Kẻ thù thầm lặng chuyên phá hủy các công trình bằng những cú nổ bất ngờ.</p>
-                </div>
-                <div class="mob-item">
-                    <h4 style="color: #9c27b0;">Enderman</h4>
-                    <p>Sinh vật cao lớn có khả năng dịch chuyển tức thời và nhặt các khối vuông.</p>
-                </div>
-                <div class="mob-item">
-                    <h4 style="color: #ff9800;">Villager</h4>
-                    <p>Những dân làng hiền lành mà bạn có thể giao dịch vật phẩm quý hiếm.</p>
-                </div>
-                <div class="mob-item">
-                    <h4 style="color: #607d8b;">Iron Golem</h4>
-                    <p>Người bảo vệ to lớn, trung thành của các ngôi làng.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="the-gioi">
-            <h2>Các Chiều Không Gian</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-wrap: wrap;">
-                <div class="info-card" style="border-left: 8px solid #f44336;">
-                    <h3>The Nether</h3>
-                    <p>Được coi là "Địa Ngục" của Minecraft. Nơi đây tràn ngập dung nham, lửa và các sinh vật như Piglins hay Ghasts. Bạn cần Nether Portal để xâm nhập vào đây.</p>
-                </div>
-                <div class="info-card" style="border-left: 8px solid #9c27b0;">
-                    <h3>The End</h3>
-                    <p>Nơi tận cùng của thế giới. Tại đây, bạn sẽ đối đầu với Ender Dragon để "phá đảo" trò chơi và mở ra cánh cổng đến những thành phố bay End City.</p>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Minecraft Fanpage - Được thiết kế cho cộng đồng đam mê khối vuông.</p>
-        <p>Trò chơi thuộc bản quyền của Mojang Studios.</p>
-    </footer>
-
-</body>
-</html>
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>MINECRAFT</h1>
-        <p>Thế giới của những khối vuông kỳ diệu</p>
-    </header>
-
-    <nav>
-        <a href="#tong-quan">Tổng Quan</a>
-        <a href="#loi-choi">Lối Chơi</a>
-        <a href="#the-gioi">Thế Giới</a>
-    </nav>
-
-    <div class="container">
-        
-        <section id="tong-quan">
-            <div class="intro-box">
-                <div class="intro-text">
-                    <h2>Giới Thiệu Chung</h2>
-                    <p>Minecraft là một trò chơi điện tử độc lập thuộc thể loại <strong>Sandbox</strong> (thế giới mở), được phát hành bởi Mojang vào năm 2011. Trong thế giới Minecraft, không có mục tiêu bắt buộc nào cả; người chơi có quyền tự do lựa chọn cách chơi của riêng mình.</p>
-                    <p>Mọi thứ trong thế giới này đều được cấu tạo từ những khối vuông (blocks) đại diện cho các vật liệu khác nhau như đất, đá, quặng, nước, và gỗ.</p>
-                </div>
-                <div style="flex:1; text-align: center;">
-                    <div class="grass-block-css"></div>
-                    <p style="color:#7cb342">Biểu tượng khối cỏ</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="loi-choi">
-            <h2>Hệ Thống Lối Chơi</h2>
-            <div class="info-grid">
-                <div class="info-card">
-                    <span class="badge">Survival</span>
-                    <h3>Chế tạo & Khai thác</h3>
-                    <p>Người chơi bắt đầu với đôi bàn tay trắng. Bạn phải chặt cây lấy gỗ, đào đá làm công cụ và khai thác than, sắt, kim cương để nâng cấp trang bị.</p>
-                </div>
-                <div class="info-card">
-                    <span class="badge">Combat</span>
-                    <h3>Chiến đấu</h3>
-                    <p>Khi đêm xuống, các quái vật như <strong>Creeper</strong>, <strong>Zombie</strong> và <strong>Skeleton</strong> sẽ xuất hiện. Bạn cần xây dựng nhà cửa và chế tạo vũ khí để bảo vệ mình.</p>
-                </div>
-                <div class="info-card">
-                    <span class="badge">Creative</span>
-                    <h3>Sáng tạo vô tận</h3>
-                    <p>Không giới hạn tài nguyên, bạn có thể bay và xây dựng những thành phố, lâu đài hay thậm chí là các máy móc phức tạp bằng đá đỏ (Redstone).</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="the-gioi">
-            <h2>Các Chiều Không Gian</h2>
-            <p>Thế giới Minecraft không chỉ dừng lại ở mặt đất (Overworld), mà còn có các vùng đất kỳ bí khác:</p>
-            <div class="info-grid">
-                <div class="info-card" style="border-left: 5px solid #f44336;">
-                    <h3>The Nether (Địa Ngục)</h3>
-                    <p>Một thế giới rực cháy với dung nham và những sinh vật nguy hiểm. Đây là nơi bạn tìm thấy tài nguyên để chế tạo trang bị mạnh nhất game.</p>
-                </div>
-                <div class="info-card" style="border-left: 5px solid #9c27b0;">
-                    <h3>The End (Thế Giới Kết Thúc)</h3>
-                    <p>Một vùng không gian trống rỗng, nơi ngự trị của <strong>Ender Dragon</strong> - con trùm cuối cùng của trò chơi.</p>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Cẩm nang Minecraft cho người mới bắt đầu.</p>
-        <p>Mã nguồn được tối ưu hiển thị trên GitHub Pages.</p>
-    </footer>
-
+    </script>
 </body>
 </html>
